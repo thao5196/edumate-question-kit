@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "build": "tsup && pnpm exec tailwindcss -i ./src/styles.css -o ./dist/styles.css --minify",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "prepare": "pnpm build"
   },
   "exports": {
     ".": {
