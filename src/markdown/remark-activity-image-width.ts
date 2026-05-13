@@ -1,8 +1,8 @@
 import type { Image, Parent, Root, Text } from "mdast";
 import { visit } from "unist-util-visit";
 
-/** Matches authoring suffix `{...}` containing image params after `]()`. */
-const PARAM_BLOCK_RE = /^\s*\{([^}]+)\}\s*$/;
+/** Matches authoring prefix `{...}` at the start of a text node immediately after an image. */
+const PARAM_BLOCK_RE = /^\s*\{([^}]+)\}/;
 
 type ImageParams = {
   width?: number;
@@ -52,7 +52,13 @@ function mergeAdjacentImageParams(parent: Parent): void {
           if (imgParams.align) hProps["data-align"] = imgParams.align;
           if (imgParams.inline) hProps["data-inline"] = "true";
           data.hProperties = hProps;
-          children.splice(i + 1, 1);
+          // Strip only the matched `{...}` portion; keep remaining text if any.
+          const remaining = (b as Text).value.slice(m[0].length);
+          if (remaining.trim() === "") {
+            children.splice(i + 1, 1);
+          } else {
+            (b as Text).value = remaining;
+          }
           continue;
         }
       }
@@ -64,12 +70,7 @@ function mergeAdjacentImageParams(parent: Parent): void {
 export function remarkActivityImageWidth(): (tree: Root) => void {
   return (tree: Root) => {
     visit(tree, (node) => {
-      if (
-        node.type === "root" ||
-        node.type === "paragraph" ||
-        node.type === "blockquote" ||
-        node.type === "listItem"
-      ) {
+      if ("children" in node && Array.isArray(node.children)) {
         mergeAdjacentImageParams(node as Parent);
       }
     });
