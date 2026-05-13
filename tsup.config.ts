@@ -1,0 +1,11 @@
+import { defineConfig } from "tsup";
+
+export default defineConfig({
+  entry: ["src/index.tsx"],
+  format: ["esm", "cjs"],
+  dts: true,
+  splitting: true, // code-split cho lazy loading
+  treeshake: true,
+  external: ["react", "react-dom"],
+  // sau khi build JS, chạy thêm tailwind để generate CSS
+});

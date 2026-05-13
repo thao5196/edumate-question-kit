@@ -1,0 +1,54 @@
+{
+  "name": "edumate-question-kit",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+  "dist"
+  ],
+  "scripts": {
+    "build": "tsup && pnpm exec tailwindcss -i ./src/styles.css -o ./dist/styles.css --minify",
+    "dev": "tsup --watch"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "hast": "*",
+    "mdast": "*",
+    "tailwindcss": "^4",
+    "tsup": "^8",
+    "typescript": "^5",
+    "unist-util-visit": "^5"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6",
+    "@dnd-kit/sortable": "^8",
+    "@dnd-kit/utilities": "^3",
+    "class-variance-authority": "^0.7",
+    "clsx": "^2",
+    "katex": "^0.16",
+    "lucide-react": "^0.400.0",
+    "radix-ui": "^1",
+    "react-markdown": "^9",
+    "rehype-katex": "^7",
+    "remark-gfm": "^4",
+    "remark-math": "^6",
+    "tailwind-merge": "^2",
+    "unist-util-visit": "^5"
+  }
+}
