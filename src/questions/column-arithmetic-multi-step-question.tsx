@@ -8,21 +8,20 @@ import {
   type ClipboardEvent,
   type KeyboardEvent,
 } from "react";
-import { Input } from "../ui/input";
+import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
 import type {
   ColumnArithmeticMultiStepQuestionPayload,
   EquationOperator,
 } from "../types";
+import { Input } from "../ui/input";
 import { cn } from "../utils/cn";
 import {
   buildAnswerRowCells,
   formatIntegerWithSpaces,
 } from "../utils/column-arithmetic";
-import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
 
-import { ActivityQuestionExplanation } from "./activity-question-explanation";
-import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 import { ContentBlockRenderer } from "../content-block/content-block";
+import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 
 const CELL_H = "h-11 sm:h-12";
 const GRID_DIGIT_COL = "minmax(3ch, 4ch)";
@@ -80,7 +79,6 @@ type Props = {
   onAnswerChange: (v: ActivityAnswerDraft) => void;
   submitState: SubmitPhase;
   onSubmitRequest: () => void;
-  explanationMarkdown: string;
 };
 
 export function ColumnArithmeticMultiStepQuestion({
@@ -89,7 +87,6 @@ export function ColumnArithmeticMultiStepQuestion({
   onAnswerChange,
   submitState,
   onSubmitRequest,
-  explanationMarkdown,
 }: Props) {
   const inputLocked = submitState === "submitting" || submitState === "graded";
 
@@ -593,11 +590,6 @@ export function ColumnArithmeticMultiStepQuestion({
       <p className="mt-4 text-center text-xs text-muted-foreground">
         Enter để kiểm tra.
       </p>
-
-      <ActivityQuestionExplanation
-        submitState={submitState}
-        explanationMarkdown={explanationMarkdown}
-      />
     </div>
   );
 }

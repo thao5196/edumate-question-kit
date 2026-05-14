@@ -1,16 +1,15 @@
 "use client";
 
 import { useMemo } from "react";
+import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
+import type { MultipleResponseQuestionPayload } from "../types";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
-import type { MultipleResponseQuestionPayload } from "../types";
-import { getMultipleChoiceLetter } from "../utils/option-letter";
 import { cn } from "../utils/cn";
-import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
+import { getMultipleChoiceLetter } from "../utils/option-letter";
 
-import { ActivityQuestionExplanation } from "./activity-question-explanation";
-import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 import { ContentBlockRenderer } from "../content-block/content-block";
+import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 
 export type MultipleResponseQuestionModel = MultipleResponseQuestionPayload;
 
@@ -28,7 +27,6 @@ type Props = {
   onAnswerChange: (v: ActivityAnswerDraft) => void;
   submitState: SubmitPhase;
   onSubmitRequest: () => void;
-  explanationMarkdown: string;
 };
 
 const MR_ITEM_PREFIX = "activity-mr-";
@@ -39,7 +37,6 @@ export function MultipleResponseQuestion({
   onAnswerChange,
   submitState,
   onSubmitRequest,
-  explanationMarkdown,
 }: Props) {
   const inputLocked = submitState === "submitting" || submitState === "graded";
 
@@ -137,11 +134,6 @@ export function MultipleResponseQuestion({
           Ctrl+Enter hoặc Cmd+Enter để kiểm tra.
         </p>
       </div>
-
-      <ActivityQuestionExplanation
-        submitState={submitState}
-        explanationMarkdown={explanationMarkdown}
-      />
     </div>
   );
 }

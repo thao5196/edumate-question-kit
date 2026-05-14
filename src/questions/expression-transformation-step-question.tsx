@@ -7,7 +7,10 @@ import {
   useRef,
   type KeyboardEvent,
 } from "react";
+import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
+import type { ExpressionTransformationStepQuestionPayload } from "../types";
 import { Input } from "../ui/input";
+import { cn } from "../utils/cn";
 import {
   EXPRESSION_TRANSFORMATION_BLANK_MAX_LENGTH,
   collectOrderedBlankIds,
@@ -15,13 +18,9 @@ import {
   isExpressionTransformationStepSubmittable,
   parseExpressionStepTemplate,
 } from "../utils/expression-transformation-step";
-import type { ExpressionTransformationStepQuestionPayload } from "../types";
-import { cn } from "../utils/cn";
-import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
 
-import { ActivityQuestionExplanation } from "./activity-question-explanation";
-import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 import { ContentBlockRenderer } from "../content-block/content-block";
+import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 
 type Props = {
   question: ExpressionTransformationStepQuestionPayload;
@@ -29,7 +28,6 @@ type Props = {
   onAnswerChange: (v: ActivityAnswerDraft) => void;
   submitState: SubmitPhase;
   onSubmitRequest: () => void;
-  explanationMarkdown: string;
 };
 
 const BLANK_INPUT_CLASS = cn(
@@ -43,7 +41,6 @@ export function ExpressionTransformationStepQuestion({
   onAnswerChange,
   submitState,
   onSubmitRequest,
-  explanationMarkdown,
 }: Props) {
   const blankOrder = useMemo(
     () => collectOrderedBlankIds(question),
@@ -179,11 +176,6 @@ export function ExpressionTransformationStepQuestion({
           Điền đầy đủ các ô; nhấn Enter ở ô cuối để kiểm tra
         </p>
       </div>
-
-      <ActivityQuestionExplanation
-        submitState={submitState}
-        explanationMarkdown={explanationMarkdown}
-      />
     </div>
   );
 }

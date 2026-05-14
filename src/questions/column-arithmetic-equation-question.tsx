@@ -8,8 +8,9 @@ import {
   type ClipboardEvent,
   type KeyboardEvent,
 } from "react";
-import { Input } from "../ui/input";
+import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
 import type { ColumnArithmeticEquationQuestionPayload } from "../types";
+import { Input } from "../ui/input";
 import { cn } from "../utils/cn";
 import {
   answerSeparatorColumnIndices,
@@ -17,11 +18,9 @@ import {
   buildColumnEquationRows,
   buildGridTemplateColumns,
 } from "../utils/column-arithmetic";
-import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
 
-import { ActivityQuestionExplanation } from "./activity-question-explanation";
-import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 import { ContentBlockRenderer } from "../content-block/content-block";
+import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 
 type Props = {
   question: ColumnArithmeticEquationQuestionPayload;
@@ -29,7 +28,6 @@ type Props = {
   onAnswerChange: (v: ActivityAnswerDraft) => void;
   submitState: SubmitPhase;
   onSubmitRequest: () => void;
-  explanationMarkdown: string;
 };
 
 type FocusDigitOptions = { selectAll?: boolean };
@@ -76,7 +74,6 @@ export function ColumnArithmeticEquationQuestion({
   onAnswerChange,
   submitState,
   onSubmitRequest,
-  explanationMarkdown,
 }: Props) {
   const slots = question.equation.slots;
   const filled = slots.filter((s) => !s.isBlank);
@@ -412,10 +409,6 @@ export function ColumnArithmeticEquationQuestion({
           </div>
         </div>
       </div>
-      <ActivityQuestionExplanation
-        submitState={submitState}
-        explanationMarkdown={explanationMarkdown}
-      />
     </div>
   );
 }

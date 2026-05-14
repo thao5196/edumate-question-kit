@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, type ReactNode } from "react";
 import {
-  DndContext,
   closestCenter,
+  DndContext,
   PointerSensor,
   useSensor,
   useSensors,
@@ -17,17 +16,17 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical } from "lucide-react";
+import { useEffect, useMemo, type ReactNode } from "react";
+import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
 import type { DragDropOrderQuestionPayload } from "../types";
 import { cn } from "../utils/cn";
-import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
 
-import { ActivityQuestionExplanation } from "./activity-question-explanation";
+import { ContentBlockRenderer } from "../content-block/content-block";
 import {
   activityStemMarkdownClassName,
   coarsePlainTextFromMarkdown,
   concatTextFromSegments,
 } from "../markdown/question-markdown-shared";
-import { ContentBlockRenderer } from "../content-block/content-block";
 
 export type DragDropOrderQuestionModel = DragDropOrderQuestionPayload;
 
@@ -125,7 +124,6 @@ type DragDropOrderQuestionProps = {
   onAnswerChange: (v: ActivityAnswerDraft) => void;
   submitState: SubmitPhase;
   onSubmitRequest: () => void;
-  explanationMarkdown: string;
 };
 
 export function DragDropOrderQuestion({
@@ -134,7 +132,6 @@ export function DragDropOrderQuestion({
   onAnswerChange,
   submitState,
   onSubmitRequest,
-  explanationMarkdown,
 }: DragDropOrderQuestionProps) {
   const inputLocked = submitState === "submitting" || submitState === "graded";
 
@@ -239,11 +236,6 @@ export function DragDropOrderQuestion({
           Ctrl+Enter hoặc Cmd+Enter trên nút Kiểm tra để nộp.
         </p>
       </div>
-
-      <ActivityQuestionExplanation
-        submitState={submitState}
-        explanationMarkdown={explanationMarkdown}
-      />
     </div>
   );
 }

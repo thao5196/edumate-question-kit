@@ -1,16 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Textarea } from "../ui/textarea";
-import type {
-  ShortAnswerTextQuestionPayload,
-  ShortAnswerTextInput,
-} from "../types";
 import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
+import type {
+  ShortAnswerTextInput,
+  ShortAnswerTextQuestionPayload,
+} from "../types";
+import { Textarea } from "../ui/textarea";
 
-import { ActivityQuestionExplanation } from "./activity-question-explanation";
-import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 import { ContentBlockRenderer } from "../content-block/content-block";
+import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 
 export const DEFAULT_SHORT_ANSWER_TEXT_INPUT: ShortAnswerTextInput = {
   maxLength: 200,
@@ -48,7 +47,6 @@ type ShortAnswerTextQuestionProps = {
   onAnswerChange: (v: ActivityAnswerDraft) => void;
   submitState: SubmitPhase;
   onSubmitRequest: () => void;
-  explanationMarkdown: string;
 };
 
 const ANSWER_TEXTAREA_ID = "activity-short-answer-text-input";
@@ -59,7 +57,6 @@ export function ShortAnswerTextQuestion({
   onAnswerChange,
   submitState,
   onSubmitRequest,
-  explanationMarkdown,
 }: ShortAnswerTextQuestionProps) {
   const input: ShortAnswerTextInput =
     (question.input as ShortAnswerTextInput | undefined) ??
@@ -115,10 +112,6 @@ export function ShortAnswerTextQuestion({
           Ctrl+Enter hoặc Cmd+Enter để kiểm tra.
         </p>
       </div>
-      <ActivityQuestionExplanation
-        submitState={submitState}
-        explanationMarkdown={explanationMarkdown}
-      />
     </div>
   );
 }

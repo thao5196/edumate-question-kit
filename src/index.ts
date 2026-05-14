@@ -1,9 +1,6 @@
 export { QuestionRenderer } from "./question-renderer";
 export type { QuestionRendererProps } from "./question-renderer";
 
-export { BlurhashImage } from "./components/blurhash-image/blurhash-image";
-export type { BlurhashImageProps } from "./components/blurhash-image/blurhash-image";
-
 export type {
   ActivityAnswerDraft,
   SubmitPhase,

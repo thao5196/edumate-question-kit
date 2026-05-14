@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Input } from "../ui/input";
-import type { ShortAnswerNumericQuestionPayload } from "../types";
-import type { ShortAnswerNumericInput } from "../types";
 import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
+import type {
+  ShortAnswerNumericInput,
+  ShortAnswerNumericQuestionPayload,
+} from "../types";
+import { Input } from "../ui/input";
 
-import { ActivityQuestionExplanation } from "./activity-question-explanation";
-import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 import { ContentBlockRenderer } from "../content-block/content-block";
+import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 
 const DEFAULT_NUMERIC_INPUT: ShortAnswerNumericInput = {
   allowDecimal: false,
@@ -50,7 +51,6 @@ type ShortAnswerNumericQuestionProps = {
   onAnswerChange: (v: ActivityAnswerDraft) => void;
   submitState: SubmitPhase;
   onSubmitRequest: () => void;
-  explanationMarkdown: string;
 };
 
 const ANSWER_INPUT_ID = "activity-short-answer-input";
@@ -61,7 +61,6 @@ export function ShortAnswerNumericQuestion({
   onAnswerChange,
   submitState,
   onSubmitRequest,
-  explanationMarkdown,
 }: ShortAnswerNumericQuestionProps) {
   const input: ShortAnswerNumericInput =
     (question.input as ShortAnswerNumericInput | undefined) ??
@@ -121,10 +120,6 @@ export function ShortAnswerNumericQuestion({
           ) : null}
         </div>
       </div>
-      <ActivityQuestionExplanation
-        submitState={submitState}
-        explanationMarkdown={explanationMarkdown}
-      />
     </div>
   );
 }

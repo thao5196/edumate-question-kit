@@ -1,18 +1,16 @@
 "use client";
 
-import { useMemo } from "react";
-import { RadioGroup, RadioGroupCardItem } from "../ui/radio-group";
-import type { MultipleChoiceQuestionPayload } from "../types";
-import { getMultipleChoiceLetter } from "../utils/option-letter";
 import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
+import type { MultipleChoiceQuestionPayload } from "../types";
+import { RadioGroup, RadioGroupCardItem } from "../ui/radio-group";
+import { getMultipleChoiceLetter } from "../utils/option-letter";
 
-import { ActivityQuestionExplanation } from "./activity-question-explanation";
+import { ContentBlockRenderer } from "../content-block/content-block";
 import {
   activityStemMarkdownClassName,
   coarsePlainTextFromMarkdown,
   concatTextFromSegments,
 } from "../markdown/question-markdown-shared";
-import { ContentBlockRenderer } from "../content-block/content-block";
 
 export type MultipleChoiceQuestionModel = MultipleChoiceQuestionPayload;
 
@@ -32,7 +30,6 @@ type MultipleChoiceQuestionProps = {
   onAnswerChange: (v: ActivityAnswerDraft) => void;
   submitState: SubmitPhase;
   onSubmitRequest: () => void;
-  explanationMarkdown: string;
 };
 
 const MC_GROUP_PREFIX = "activity-mc-";
@@ -43,7 +40,6 @@ export function MultipleChoiceQuestion({
   onAnswerChange,
   submitState,
   onSubmitRequest,
-  explanationMarkdown,
 }: MultipleChoiceQuestionProps) {
   const inputLocked = submitState === "submitting" || submitState === "graded";
 
@@ -110,10 +106,6 @@ export function MultipleChoiceQuestion({
           Ctrl+Enter hoặc Cmd+Enter để kiểm tra.
         </p>
       </div>
-      <ActivityQuestionExplanation
-        submitState={submitState}
-        explanationMarkdown={explanationMarkdown}
-      />
     </div>
   );
 }

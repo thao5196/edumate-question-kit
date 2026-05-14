@@ -1,12 +1,11 @@
 "use client";
 
-import { RadioGroup, RadioGroupCardItem } from "../ui/radio-group";
-import type { TrueFalseQuestionPayload } from "../types";
 import type { ActivityAnswerDraft, SubmitPhase } from "../registry/types";
+import type { TrueFalseQuestionPayload } from "../types";
+import { RadioGroup, RadioGroupCardItem } from "../ui/radio-group";
 
-import { ActivityQuestionExplanation } from "./activity-question-explanation";
-import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 import { ContentBlockRenderer } from "../content-block/content-block";
+import { activityStemMarkdownClassName } from "../markdown/question-markdown-shared";
 
 const TRUE_VALUE = "true";
 const FALSE_VALUE = "false";
@@ -24,7 +23,6 @@ type TrueFalseQuestionProps = {
   onAnswerChange: (v: ActivityAnswerDraft) => void;
   submitState: SubmitPhase;
   onSubmitRequest: () => void;
-  explanationMarkdown: string;
 };
 
 const TF_GROUP_PREFIX = "activity-tf-";
@@ -35,7 +33,6 @@ export function TrueFalseQuestion({
   onAnswerChange,
   submitState,
   onSubmitRequest,
-  explanationMarkdown,
 }: TrueFalseQuestionProps) {
   const inputLocked = submitState === "submitting" || submitState === "graded";
 
@@ -96,11 +93,6 @@ export function TrueFalseQuestion({
           Ctrl+Enter hoặc Cmd+Enter để kiểm tra.
         </p>
       </div>
-
-      <ActivityQuestionExplanation
-        submitState={submitState}
-        explanationMarkdown={explanationMarkdown}
-      />
     </div>
   );
 }
